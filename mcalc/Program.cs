@@ -54,6 +54,17 @@ namespace mcalc
 						}
 						return;
 					}
+					else if (argsstr.Trim().ToLower() == "help" || argsstr.Trim().ToLower() == "?")
+					{
+						Console.Write("> ");
+						Console.Write("lf");
+						Console.Write(' ');
+						Console.WriteLine("Built-In functions");
+						Console.Write("> ");
+						Console.Write("lv");
+						Console.Write(' ');
+						Console.WriteLine("Built-In variables");
+					}
 				}
 				Console.Write("> ");
 				Console.Write(argsstr);
