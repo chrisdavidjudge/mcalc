@@ -6,78 +6,94 @@ namespace mcalc
 {
 	internal class Program
 	{
-		internal static void Main(string[] args)
+
+        private static void DisplayHeader()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("WINDOWS MCALC");
+            Console.WriteLine("-------------");
+            Console.WriteLine();
+        }
+
+        internal static void Main(string[] args)
 		{
+            DisplayHeader();
 
-#if DEBUG
-			Console.Write("Enter expression: ");
-			args = new string[] { Console.ReadLine() };
-#endif
+            Console.Write("> ");
 
-			MathParser parser = new();
-			try
-			{
-				Console.ResetColor();
-				Console.ForegroundColor = ConsoleColor.Green;
-				string argsstr = Parse(args);
-				if(argsstr != null)
-				{
-					if(argsstr.Trim().ToLower() == "lv")
-					{
-						foreach (var item in parser.LocalVariables)
-						{
-							Console.Write("> ");
-							Console.Write(item.Key);
-							Console.Write(' ');
-							Console.WriteLine(item.Value);
-						}
-						return;
-					}
-					else if (argsstr.Trim().ToLower() == "lf")
-					{
-						foreach (var item in parser.LocalFunctions)
-						{
-							try
-							{
-								Console.Write("> ");
-								Console.Write(item.Key);
-								Console.Write(' ');
-								Console.WriteLine(item.Value);
-							}
-							catch (Exception ex)
-							{
-								Console.ForegroundColor = ConsoleColor.Red;
-								Console.Write("Exception:- ");
-								Console.Write(ex.Message);
-								Console.ResetColor();
-							}
-						}
-						return;
-					}
-				}
-				Console.Write("> ");
-				Console.Write(argsstr);
-				Console.Write(" = ");
-				Console.WriteLine(parser.Parse(Parse(args)));
-			}
-			catch (Exception ex)
-			{
-				Console.ForegroundColor=ConsoleColor.Red;
-				Console.Write("Exception: ");
-				Console.Write(ex.ToString());
-				Console.ResetColor();
-			}
-			finally
-			{
-				Console.ResetColor();
-			}
-#if DEBUG
-			Console.Read();
-#endif
+            MathParser parser = new();
 
+            string input = Console.ReadLine();
+
+			while (input != null)
+			{
+                try
+                {
+                    Console.ResetColor();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    string argsstr = Parse(input);
+                    if (argsstr != null)
+                    {
+                        if (argsstr.Trim().ToLower() == "lv")
+                        {
+                            foreach (var item in parser.LocalVariables)
+                            {
+                                Console.Write("> ");
+                                Console.Write(item.Key);
+                                Console.Write(' ');
+                                Console.WriteLine(item.Value);
+                            }
+                            return;
+                        }
+                        else if (argsstr.Trim().ToLower() == "lf")
+                        {
+                            foreach (var item in parser.LocalFunctions)
+                            {
+                                try
+                                {
+                                    Console.Write("> ");
+                                    Console.Write(item.Key);
+                                    Console.Write(' ');
+                                    Console.WriteLine(item.Value);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.Write("Exception:- ");
+                                    Console.Write(ex.Message);
+                                    Console.ResetColor();
+                                }
+                            }
+                            return;
+                        }
+                    }
+                    Console.Write("> ");
+                    Console.Write(argsstr);
+                    Console.Write(" = ");
+                    Console.WriteLine(parser.Parse(Parse(input)));
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Exception: ");
+                    Console.Write(ex.ToString());
+                    Console.ResetColor();
+                }
+                finally
+                {
+                    Console.ResetColor();
+                }
+                return;
+            }
+
+        }
+
+        private static string Parse(string input)
+		{
+			return input;
 		}
 
-		private static string Parse(string[] args)
+        private static string Parse(string[] args)
 		{
 			StringBuilder stringBuilder = new();
 			foreach(string arg in args)

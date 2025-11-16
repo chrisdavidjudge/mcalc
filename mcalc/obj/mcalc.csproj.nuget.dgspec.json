@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\chris\\source\\repos\\mcalc\\mcalcv1\\mcalc\\mcalc\\mcalc.csproj": {}
+    "C:\\Users\\chris\\source\\repos\\mcalc\\mcalc\\mcalc\\mcalc.csproj": {}
   },
   "projects": {
-    "C:\\Users\\chris\\source\\repos\\mcalc\\mcalcv1\\mcalc\\mcalc\\mcalc.csproj": {
+    "C:\\Users\\chris\\source\\repos\\mcalc\\mcalc\\mcalc\\mcalc.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\chris\\source\\repos\\mcalc\\mcalcv1\\mcalc\\mcalc\\mcalc.csproj",
+        "projectUniqueName": "C:\\Users\\chris\\source\\repos\\mcalc\\mcalc\\mcalc\\mcalc.csproj",
         "projectName": "mcalc",
-        "projectPath": "C:\\Users\\chris\\source\\repos\\mcalc\\mcalcv1\\mcalc\\mcalc\\mcalc.csproj",
+        "projectPath": "C:\\Users\\chris\\source\\repos\\mcalc\\mcalc\\mcalc\\mcalc.csproj",
         "packagesPath": "C:\\Users\\chris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\chris\\source\\repos\\mcalc\\mcalcv1\\mcalc\\mcalc\\obj\\",
+        "outputPath": "C:\\Users\\chris\\source\\repos\\mcalc\\mcalc\\mcalc\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -39,11 +39,23 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "MathosParser": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -60,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400-preview.22301.10\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("mcalc")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d4f2fe4a71cd539f032f0f7ec520e494d363720d")]
 [assembly: System.Reflection.AssemblyProductAttribute("mcalc")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mcalc")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
