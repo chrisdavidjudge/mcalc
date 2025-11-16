@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text;
 using Mathos.Parser;
 
@@ -17,13 +18,15 @@ namespace mcalc
 
         internal static void Main(string[] args)
 		{
-            DisplayHeader();
+
+            string expression = string.Join(' ', args);
 
             Console.Write("> ");
+            Console.WriteLine(expression);
 
             MathParser parser = new();
 
-            string input = Console.ReadLine();
+            string input = expression;
 
 			while (input != null)
 			{
@@ -64,6 +67,13 @@ namespace mcalc
                                     Console.ResetColor();
                                 }
                             }
+                            return;
+                        }
+                        else if (argsstr.Trim().ToLower() == "version")
+                        {
+                            Console.Write("> ");
+                            Console.Write(' ');
+                            Console.WriteLine(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
                             return;
                         }
                     }
