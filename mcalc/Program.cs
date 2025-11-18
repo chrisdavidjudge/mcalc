@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using Mathos.Parser;
 
@@ -8,27 +9,36 @@ namespace mcalc
 	internal class Program
 	{
 
-        private static void DisplayHeader()
+        internal sealed class Command
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("WINDOWS MCALC");
-            Console.WriteLine("-------------");
-            Console.WriteLine();
+            public Command(string name, string description) 
+            {
+                Name = name;
+                Description = description;
+            }
+
+            public string Name { get; private set; }
+            public string Description{ get; private set; }
+
         }
 
         internal static void Main(string[] args)
 		{
 
             string expression = string.Join(' ', args);
-
-            Console.Write("> ");
-            Console.WriteLine(expression);
-
             MathParser parser = new();
-
             string input = expression;
 
-			while (input != null)
+            Command[] commands =
+            {
+                new Command("--help", "Display help"),
+                new Command("--lv", "List all supported variables"),
+                new Command("--lf", "List all supported functions"),
+                new Command("--lops", "List all supported operators"),
+                new Command("--version", "Display the versdion of this app"),
+            };
+
+            while (input != null)
 			{
                 try
                 {
@@ -37,7 +47,7 @@ namespace mcalc
                     string argsstr = Parse(input);
                     if (argsstr != null)
                     {
-                        if (argsstr.Trim().ToLower() == "lv")
+                        if (argsstr.Trim().ToLower() == commands.Where(((c) => { return c.Name == "--lv"; })).First().Name)
                         {
                             foreach (var item in parser.LocalVariables)
                             {
@@ -48,7 +58,7 @@ namespace mcalc
                             }
                             return;
                         }
-                        else if (argsstr.Trim().ToLower() == "lf")
+                        else if (argsstr.Trim().ToLower() == commands.Where(((c) => { return c.Name == "--lf"; })).First().Name)
                         {
                             foreach (var item in parser.LocalFunctions)
                             {
@@ -69,11 +79,33 @@ namespace mcalc
                             }
                             return;
                         }
-                        else if (argsstr.Trim().ToLower() == "version")
+                        else if (argsstr.Trim().ToLower() == commands.Where(((c) => { return c.Name == "--version"; })).First().Name)
                         {
                             Console.Write("> ");
                             Console.Write(' ');
                             Console.WriteLine(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                            return;
+                        }
+                        else if (argsstr.Trim().ToLower() == commands.Where(((c) => { return c.Name == "--lops"; })).First().Name)
+                        {
+                            int maxLen = parser.Operators.Max(c => c.Key.Length);
+                            foreach (var item in parser.Operators)
+                            {
+                                Console.Write("> ");
+                                Console.Write(' ');
+                                Console.WriteLine($"{item.Key.PadRight(maxLen)}: {item.Value}");
+                            }
+                            return;
+                        }
+                        else if (argsstr.Trim().ToLower() == commands.Where(((c) => { return c.Name == "--help"; })).First().Name)
+                        {
+                            int maxLen = commands.Max(c => c.Name.Length);
+                            foreach (var c in commands)
+                            {
+                                Console.Write("> ");
+                                Console.Write(' ');
+                                Console.WriteLine($"{c.Name.PadRight(maxLen)}: {c.Description}");
+                            }
                             return;
                         }
                     }
