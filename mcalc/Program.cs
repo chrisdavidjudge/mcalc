@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -6,8 +8,15 @@ using Mathos.Parser;
 
 namespace mcalc
 {
-	internal class Program
-	{
+    internal sealed class Program
+    {
+        public sealed class CommandCollection : List<Command>
+        {
+            public bool Exists(string key)
+            {
+                return this.Where((item) => { return item.Name == key; }).Any();
+            }
+        }
 
         internal sealed class Command
         {
@@ -29,13 +38,14 @@ namespace mcalc
             MathParser parser = new();
             string input = expression;
 
-            Command[] commands =
+            CommandCollection commands = new()
             {
                 new Command("--help", "Display help"),
                 new Command("--lv", "List all supported variables"),
                 new Command("--lf", "List all supported functions"),
                 new Command("--lops", "List all supported operators"),
-                new Command("--version", "Display the versdion of this app"),
+                new Command("--envv", "List all environment variables"),
+                new Command("--version", "Display the version of this app"),
             };
 
             while (input != null)
@@ -49,10 +59,11 @@ namespace mcalc
                     {
                         if (argsstr.Trim().ToLower() == commands.Where(((c) => { return c.Name == "--lv"; })).First().Name)
                         {
+                            int maxLen = parser.LocalVariables.Max(v => v.Key.ToString().Length);
                             foreach (var item in parser.LocalVariables)
                             {
                                 Console.Write("> ");
-                                Console.Write(item.Key);
+                                Console.Write(item.Key.ToString().PadRight(maxLen));
                                 Console.Write(' ');
                                 Console.WriteLine(item.Value);
                             }
@@ -60,12 +71,13 @@ namespace mcalc
                         }
                         else if (argsstr.Trim().ToLower() == commands.Where(((c) => { return c.Name == "--lf"; })).First().Name)
                         {
+                            int maxLen = parser.LocalFunctions.Max(v => v.Key.ToString().Length);
                             foreach (var item in parser.LocalFunctions)
                             {
                                 try
                                 {
                                     Console.Write("> ");
-                                    Console.Write(item.Key);
+                                    Console.Write(item.Key.ToString().PadRight(maxLen));
                                     Console.Write(' ');
                                     Console.WriteLine(item.Value);
                                 }
@@ -97,6 +109,25 @@ namespace mcalc
                             }
                             return;
                         }
+                        else if (argsstr.Trim().ToLower() == commands.Where(((c) => { return c.Name == "--envv"; })).First().Name)
+                        {
+                            var items = Environment.GetEnvironmentVariables().OfType<DictionaryEntry>();
+                            int maxLen = items.Max((i) => { return i.Key.ToString().Length; });
+                            foreach (DictionaryEntry item in items)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.Write("> ");
+                                Console.Write($"{item.Key.ToString().PadRight(maxLen)}: ");
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                foreach(string value in item.Value.ToString().Split(';'))
+                                {
+                                    Console.Write(" ".ToString().PadRight(0));
+                                    Console.WriteLine($"{value}");
+                                }
+                                Console.ResetColor();
+                            }
+                            return;
+                        }
                         else if (argsstr.Trim().ToLower() == commands.Where(((c) => { return c.Name == "--help"; })).First().Name)
                         {
                             int maxLen = commands.Max(c => c.Name.Length);
@@ -118,7 +149,11 @@ namespace mcalc
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Exception: ");
+#if !DEBUG
+                    Console.WriteLine("An input error occurred");
+#else
                     Console.Write(ex.ToString());
+#endif
                     Console.ResetColor();
                 }
                 finally
@@ -127,7 +162,6 @@ namespace mcalc
                 }
                 return;
             }
-
         }
 
         private static string Parse(string input)

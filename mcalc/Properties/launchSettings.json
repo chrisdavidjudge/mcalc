@@ -2,7 +2,7 @@
   "profiles": {
     "mcalc": {
       "commandName": "Project",
-      "commandLineArgs": "5 + 233 * 2"
+      "commandLineArgs": "--envv"
     }
   }
 }
