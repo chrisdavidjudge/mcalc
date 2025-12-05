@@ -34,3 +34,4 @@ C:\Users\chris\source\repos\mcalc\mcalc\mcalc\obj\Release\net6.0\mcalc.csproj.As
 C:\Users\chris\source\repos\mcalc\mcalc\mcalc\obj\Release\net6.0\mcalc.csproj.Up2Date
 C:\Users\chris\source\repos\mcalc\mcalc\mcalc\obj\Release\net6.0\mcalc.genruntimeconfig.cache
 C:\Users\chris\source\repos\mcalc\mcalc\mcalc\obj\Release\net6.0\ref\mcalc.dll
+C:\Users\chris\source\repos\mcalc\mcalc\mcalc\bin\Release\net6.0\XML\LocalVariables.xml

@@ -52,3 +52,4 @@ C:\Users\chris\source\repos\mcalc\mcalc\mcalc\obj\Debug\net6.0\refint\mcalc.dll
 C:\Users\chris\source\repos\mcalc\mcalc\mcalc\obj\Debug\net6.0\mcalc.pdb
 C:\Users\chris\source\repos\mcalc\mcalc\mcalc\obj\Debug\net6.0\mcalc.genruntimeconfig.cache
 C:\Users\chris\source\repos\mcalc\mcalc\mcalc\obj\Debug\net6.0\ref\mcalc.dll
+C:\Users\chris\source\repos\mcalc\mcalc\mcalc\bin\Debug\net6.0\XML\LocalVariables.xml
